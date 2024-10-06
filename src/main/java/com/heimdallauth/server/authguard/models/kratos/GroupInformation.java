@@ -1,4 +1,4 @@
-package com.heimdallauth.server.authguard.models;
+package com.heimdallauth.server.authguard.models.kratos;
 
 import lombok.*;
 
