@@ -1,8 +1,9 @@
 package com.heimdallauth.server.authguard.utils.wf;
 
-import com.heimdallauth.commons.models.wf.StageApproval;
-import com.heimdallauth.commons.models.wf.WorkflowStage;
-import com.heimdallauth.commons.models.wf.WorkflowTransition;
+import com.heimdallauth.server.authguard.models.wf.StageApproval;
+import com.heimdallauth.server.authguard.models.wf.WorkflowStage;
+import com.heimdallauth.server.authguard.models.wf.WorkflowTransition;
+import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,15 +16,24 @@ public class WorkflowUtils {
     public static void generateAndAssignId(Object object, String workflowId){
         if(object == null) return;
         Class<?> clazz = object.getClass();
-        String prefix = getPrefixForClass(clazz, workflowId);
+        String prefix = getPrefixForClass(clazz);
         int nextId = getNextId(clazz);
         if(prefix != null &&  nextId >0 ){
-            Field idField =
+            Field idField = ReflectionUtils.findField(clazz, "id");
+            if(idField != null){
+                ReflectionUtils.makeAccessible(idField);
+                ReflectionUtils.setField(idField, object, String.format("%s-%s-%d", prefix, workflowId, nextId));
+            }
         }
 
     }
-    private static String getPrefixForClass(Class<?> clazz, String workflowId){
-        return "";
+    private static String getPrefixForClass(Class<?> clazz){
+        return switch (clazz.getSimpleName()) {
+            case "WorkflowStage" -> "STAGE";
+            case "WorkflowTransition" -> "TRANSITION";
+            case "StageApproval" -> "APPROVAL";
+            default -> null;
+        };
     }
     private static int getNextId(Class clazz){
         if(clazz == WorkflowStage.class){

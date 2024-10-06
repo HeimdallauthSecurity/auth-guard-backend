@@ -1,6 +1,6 @@
 package com.heimdallauth.server.authguard.models.wf;
 
-import com.heimdallauth.commons.constants.ApprovalStatus;
+import com.heimdallauth.server.authguard.constants.ApprovalStatus;
 import lombok.*;
 
 import java.time.Instant;
@@ -11,7 +11,7 @@ import java.time.Instant;
 @Getter
 @Setter
 public class StageApproval {
-    private String approvalId;
+    private String id;
     private String stageId;
     private String workflowId;
     private String approverUserId;

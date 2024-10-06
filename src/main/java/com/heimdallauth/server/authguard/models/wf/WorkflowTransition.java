@@ -8,6 +8,5 @@ import lombok.*;
 @Getter
 @Setter
 public class WorkflowTransition {
-    private String transitionId;
-    private String
+    private String id;
 }

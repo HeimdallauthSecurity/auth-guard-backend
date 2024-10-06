@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Workflow {
-    private String workflowId;
+    private String id;
     private String workflowName;
     private String workflowDescription;
     private List<WorkflowStage> stages;

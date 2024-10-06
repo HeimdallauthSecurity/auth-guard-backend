@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 public class WorkflowCondition {
-    private String conditionId;
+    private String id;
     private String conditionName;
     private String conditionDescription;
     private String conditionExpression;

@@ -1,6 +1,6 @@
 package com.heimdallauth.server.authguard.models.wf;
 
-import com.heimdallauth.commons.constants.StageAction;
+import com.heimdallauth.server.authguard.constants.StageAction;
 import lombok.*;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class WorkflowStage {
-    private String stageId;
+    private String id;
     private String stageName;
     private String description;
     private List<String> approvers;
